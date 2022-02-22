@@ -41,6 +41,7 @@ export default class AddUserForm extends React.Component {
                     <MenuItem value={'American'}>American</MenuItem>
                     <MenuItem value={'Korean'}>Korean</MenuItem>
                     <MenuItem value={'Chinese'}>Chinese</MenuItem>
+                    <MenuItem value={'Indian'}>Indian</MenuItem>
                 </Select>
 
             </Grid>
