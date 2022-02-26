@@ -12,6 +12,9 @@ def generate_code():
 class Room(models.Model):
     code = models.CharField(max_length=6, default=generate_code,unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    start_date = models.DateField() 
+    end_date = models.DateField()
+    #max_day_length = models.IntegerField() #1-7, number of days to include in selection
 
 
 

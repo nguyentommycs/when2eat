@@ -4,10 +4,10 @@ from .models import Room, User
 class RoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = Room
-        fields = ('id','code','created_at')
+        fields = '__all__'
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id','room','name','cuisine']
+        fields = '__all__'
 

@@ -1,3 +1,4 @@
+from time import strftime, strptime
 from django.shortcuts import render
 from rest_framework import viewsets,status
 from .serializers import RoomSerializer, UserSerializer
@@ -12,10 +13,15 @@ class RoomView(viewsets.ModelViewSet):
 
 
     def create(self, request, format=None):
-        room = Room()
+        print("request",request)
+        body_data = json.loads(request.body)
+        room = Room(start_date=body_data['start_date'][0:10],end_date=body_data['end_date'][0:10])
         room.save()
         return Response(RoomSerializer(room).data)
-
+    def list(self, request):
+        code = request.GET.get('code')
+        room = Room.objects.get(code=code)
+        return Response(RoomSerializer(room).data)   
 
   
 class UserView(viewsets.ModelViewSet):
