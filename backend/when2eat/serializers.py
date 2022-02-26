@@ -9,5 +9,5 @@ class RoomSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id','room','name','cuisine')
+        fields = ['id','room','name','cuisine']
 

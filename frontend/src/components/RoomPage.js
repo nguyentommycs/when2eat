@@ -14,17 +14,6 @@ function RoomPage() {
         navigate("/results/" + code );
     }
 
-    /*useEffect(() => {
-        fetch("/api/get-room" + "?code=" + code)
-          .then(res => res.json())
-          .then(data => {
-            setRoomData({
-              ...roomData, 
-              //fill in code to set state
-            })
-          })
-          console.log("RoomPage");
-      },code) //It renders when the object changes .If we use roomData and/or roomCode then it rerenders infinite times*/
     return (
         <div>
 
@@ -49,7 +38,7 @@ function RoomPage() {
                 </Typography>
             </Grid>
             <Grid item xs={12} align = "center" >
-                <AddUserForm/>
+                <AddUserForm roomCode={code}/>
             </Grid>
 
 

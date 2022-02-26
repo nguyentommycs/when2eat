@@ -4,14 +4,12 @@ import { BrowserRouter as Router, Routes, Route, Link, Redirect,useParams,useNav
 import HomePage from "./components/HomePage";
 import ResultsPage from "./components/ResultsPage";
 import RoomPage from "./components/RoomPage";
-import UserPage from "./components/UserPage";
 function App() {
   return (
     <Router>
         <Routes>
             <Route path="/room/:code" element = {<RoomPage/>}/>
             <Route path="/results/:code" element = {<ResultsPage/>}/>
-            <Route path="/user/:code" element = {<UserPage/>}/>
             <Route path="/" element = {<HomePage/>}/> 
         </Routes>  
     </Router>

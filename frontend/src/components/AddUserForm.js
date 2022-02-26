@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
+import { useNavigate, useParams } from 'react-router-dom';
 import { Button, Grid, Typography, TextField, FormControl, FormHelperText, Radio, RadioGroup, FormControlLabel,Select,MenuItem, InputLabel } from '@material-ui/core';
+
 export default class AddUserForm extends React.Component {
     constructor(props) {
       super(props);
       this.state = {name: '', cuisine: ''};
-  
+      this.code = props.roomCode;
       this.handleNameChange = this.handleNameChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
       this.handleCuisineChange = this.handleCuisineChange.bind(this);
@@ -17,8 +19,22 @@ export default class AddUserForm extends React.Component {
         this.setState({cuisine: event.target.value});
     }
   
-    handleSubmit(event) {
-        alert('User added! Click see results to view everybody else\'s choices.');
+    handleSubmit=async(event)=>{
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+              'Content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                code: this.code,
+                name: this.state.name,
+                cuisine: this.state.cuisine
+            }),
+        };
+
+        const res = await fetch('http://localhost:8000/api/users/',requestOptions);
+        const data = await res.json();
+        alert(this.state.name + " has been added! Click see results to see everyone else.");
         event.preventDefault();
     }
   
@@ -54,7 +70,3 @@ export default class AddUserForm extends React.Component {
       );
     }
   }
-
-
-  
-
