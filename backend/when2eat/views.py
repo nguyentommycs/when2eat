@@ -50,12 +50,25 @@ class BestTimeView(viewsets.ModelViewSet):
         code = request.GET.get('code')
         room = Room.objects.get(code=code)
         users = room.user_set.all()
+        if len(users)==0:
+            return Response({
+            'best_time':'',
+            'best_cuisine':'',
+            'available_users':'',
+            'unavailable_users':''
+            })   
         #finite set of times (every hour)
         #check if a person is available from that hour to the end of the next hour
         #for each hour, check EACH of the users to see if they are available
         #keep track of the most populous time, favor times closest to 7PM
         allTimes = {}
         bestTime = None
+        prefTime = 19
+        mealTime = RoomSerializer(room).data['meal']
+        if mealTime == 'Breakfast':
+            prefTime = 8
+        if mealTime == 'Lunch':
+            prefTime = 12
         for i in range(0,23):
             allTimes[i]=set()
             for user in users:
@@ -64,12 +77,13 @@ class BestTimeView(viewsets.ModelViewSet):
                     allTimes[i].add(user)
                     if bestTime is None:
                         bestTime=i
-                    elif len(allTimes[i]) > len(allTimes[bestTime]) or (len(allTimes[i])== len(allTimes[bestTime]) and abs(i-19)<abs(bestTime-19)):
+                    elif len(allTimes[i]) > len(allTimes[bestTime]) or (len(allTimes[i])== len(allTimes[bestTime]) and abs(i-prefTime)<abs(bestTime-prefTime)):
                         bestTime=i
 
         #set of available users is allTimes[bestTime]
         allCuisines={}
         bestCuisine = 'No Preference'
+
         for user in allTimes[bestTime]:
             data = UserSerializer(user).data
             cuisine = data['cuisine']
@@ -84,7 +98,9 @@ class BestTimeView(viewsets.ModelViewSet):
                     bestCuisine= cuisine
         #convert time into readable string
         bestTimeStr = str(int(bestTime)%12)
-        if bestTime>12:
+        if bestTime>=12:
+            if bestTimeStr=='0':
+                bestTimeStr='12'
             bestTimeStr = bestTimeStr + ' PM'
         else:
             bestTimeStr=bestTimeStr + ' AM'

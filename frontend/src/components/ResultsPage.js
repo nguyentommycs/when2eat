@@ -43,46 +43,55 @@ function ResultsPage() {
   else{
     return (
       <div>
-          <Grid item xs={12} align = "center">
-              <Typography component="h4" variant="h4">
-              Code: {code}
-              </Typography>
+        <Grid container spacing = {2}> 
+          <Grid item xs={6} align = "center">
+            <Grid container spacing = {1}> 
+              <Grid item xs={12} align = "center">
+                  <Typography component="h4" variant="h4">
+                  Code: {code}
+                  </Typography>
+                  <Typography component="h4" variant="h4">
+                  Suggested Time: {data.best_time} 
+                  </Typography>
+                  <Typography component="h4" variant="h4">
+                  Suggested Cuisine: {data.best_cuisine} 
+                  </Typography>
+              </Grid>
+              <Grid item xs={12} align = "center">
+                <Button color = "primary" variant = "contained" onClick={handleGoToRoomButtonPressed}>
+                    Go back and add more users
+                </Button>
+              </Grid>
+              <Grid item xs={12} align = "center">
+                  <Button color = "secondary" variant = "contained" onClick={event =>  window.open('https://www.yelp.com/search?find_desc='+data.best_cuisine)}>
+                      See Yelp Reccomendations in your Area
+                  </Button>
+                  
+              </Grid>
+            </Grid>
           </Grid>
-          <Grid item xs={12} align = "center">
-              <Typography component="h4" variant="h4">
-              Suggested Time: {data.best_time} 
-              </Typography>
-              <Typography component="h4" variant="h4">
-              Suggested Cuisine: {data.best_cuisine} 
-              </Typography>
+          <Grid item xs={6} align = "center">
+            <Grid item xs={12} align = "center">
+                <Typography component="h4" variant="h4">
+                People that can make it
+                </Typography>
+            </Grid>
+            <Grid item xs={12} align = "center" >
+                    <AllUsersBlock data={data.available_users}/>
+            </Grid>
+            <Grid item xs={12} align = "center">
+                <Typography component="h4" variant="h4">
+                People that can't make it
+                </Typography>
+            </Grid>
+            <Grid item xs={12} align = "center" >
+                    <AllUsersBlock data={data.unavailable_users}/>
+            </Grid>
           </Grid>
-          <Grid item xs={12} align = "center">
-              <Typography component="h4" variant="h4">
-              People that can make it
-              </Typography>
-          </Grid>
-          <Grid item xs={12} align = "center" >
-                  <AllUsersBlock data={data.available_users}/>
-          </Grid>
-          <Grid item xs={12} align = "center">
-              <Typography component="h4" variant="h4">
-              People that can't make it
-              </Typography>
-          </Grid>
-          <Grid item xs={12} align = "center" >
-                  <AllUsersBlock data={data.unavailable_users}/>
-          </Grid>
-          <Grid item xs={12} align = "center">
-              <Button color = "primary" variant = "contained" onClick={handleGoToRoomButtonPressed}>
-                  Go back and add more users
-              </Button>
-          </Grid>
-          <Grid item xs={12} align = "center">
-              <Button color = "secondary" variant = "contained" onClick={event =>  window.open('https://www.yelp.com/search?find_desc='+data.best_cuisine)}>
-                  See Yelp Reccomendations in your Area
-              </Button>
-              
-          </Grid>
+        </Grid>
+
+
+          
 
       </div>
     )

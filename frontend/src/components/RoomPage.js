@@ -45,33 +45,44 @@ function RoomPage() {
     else{
         return (
             <div>
-
-                <Grid item xs={12} align = "center">
+            <Grid container spacing = {2}> 
+                <Grid item xs={6} align = "center">
                     <Typography component="h4" variant="h4">
                     Code: {code}
                     </Typography>
-                </Grid>
-                <Grid item xs={12} align = "center">
-                    <Typography component="h4" variant="h4">
-                    You've been invited to {data.meal} on {data.date}!
-                    </Typography>
-                    Please input your name, available times, and desired cuisine below.
+                    <Grid item xs={10} align = "center">
+                        <Typography component="h4" variant="h4">
+                        You've been invited to {data.meal} on {data.date}!
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={10} align = "center">
+                        <Typography component="h4" variant="body1">
+                        <b>Please input your name, available times, and desired cuisine.</b>
+                        <br></br>
+                        Afterwards, feel free send this code or link to your friends to invite them!
+                        </Typography>
+
+                    </Grid>
                 </Grid>
 
-                <Grid item xs={12} align = "center">
-                    <Typography component="h4" variant="h4">
-                    Add a new user:
-                    </Typography>
-                </Grid>
-                <Grid item xs={12} align = "center" >
-                    <AddUserForm roomCode={code}/>
-                </Grid>
-                <Grid item xs={12} align = "center">
-                    <Button color = "primary" variant = "contained" onClick={handleGoToResultsButtonPressed}>
-                        See Results
-                    </Button>
-                </Grid>
 
+                <Grid item xs={6} align = "center">
+                    <Grid container spacing = {2}> 
+                        <Grid item xs={12} align = "center" >
+                            <Typography component="h4" variant="h4">
+                            Add a new user:
+                            </Typography>
+                            <AddUserForm roomCode={code}/>
+                        </Grid>
+                        <Grid item xs={12} align = "center">
+                            <Button color = "secondary" variant = "contained" onClick={handleGoToResultsButtonPressed}>
+                                See Results
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                
+            </Grid>
             </div>
         )
     }
