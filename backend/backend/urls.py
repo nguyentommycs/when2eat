@@ -21,6 +21,7 @@ from when2eat import views
 router =routers.DefaultRouter()
 router.register(r'rooms',views.RoomView,'room')
 router.register(r'users',views.UserView,'user')
+router.register(r'besttime',views.BestTimeView,'besttime')
 urlpatterns = [
 
     path('api/',include(router.urls))

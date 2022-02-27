@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import { BrowserRouter as Router, Routes, Route, Link, Redirect,useParams,useNavigate, useInRouterContext} from 'react-router-dom';
-import { Button, Grid, Typography, TextField, FormControl, FormHelperText, Radio, RadioGroup, FormControlLabel, } from '@material-ui/core';
+import { Button, Grid, Typography, TextField, FormControl, FormHelperText, Radio, RadioGroup, FormControlLabel, InputLabel,Select,MenuItem} from '@material-ui/core';
 import DatePicker from 'react-date-picker';
 
 
@@ -8,20 +8,22 @@ import DatePicker from 'react-date-picker';
 function HomePage() {
     
     const [date,onDateChange] = useState(new Date());
+    const [meal,setMeal] = useState("Dinner");
+    const handleMealChange= (event)=> {setMeal(event.target.value);
+    }
     var data;
     const navigate =useNavigate();
     const addRoom = async () => {
-        const start_date_str=date.toJSON();
-        date.setDate(date.getDate()+7);
-        const end_date_str=date.toJSON();
+        console.log(meal);
+        const date_str=date.toJSON();
         const requestOptions = {
             method: 'POST',
             headers: {
               'Content-type': 'application/json',
             },
             body: JSON.stringify({
-                start_date: start_date_str,
-                end_date: end_date_str
+                date: date_str,
+                meal: meal
             }),
         };
         const res = await fetch('http://localhost:8000/api/rooms/',requestOptions);
@@ -47,6 +49,22 @@ function HomePage() {
                         </div>
                     </FormHelperText>
                 </FormControl>
+                <Grid item xs={12} align = "center">
+
+                <InputLabel id="demo-simple-select-label">Meal Time</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        label="Meal Time"
+                        onChange={handleMealChange}
+                        value = {meal}
+                    >
+                        <MenuItem value={"Breakfast"}>Breakfast</MenuItem>
+                        <MenuItem value={"Lunch"}>Lunch</MenuItem>
+                        <MenuItem value={"Dinner"}>Dinner</MenuItem>
+                    </Select>
+
+            </Grid>
             </Grid>
             <Grid item xs={12} align = "center">
                 <DatePicker onChange = {onDateChange} value = {date} />

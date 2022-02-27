@@ -24,7 +24,7 @@ function ResultsPage() {
         },
 
       };
-      const res = await fetch('http://localhost:8000/api/users?code=' + code,requestOptions);
+      const res = await fetch('http://localhost:8000/api/besttime?code=' + code,requestOptions);
       const data = await res.json();
       console.log(data);
       setData(data)
@@ -50,16 +50,38 @@ function ResultsPage() {
           </Grid>
           <Grid item xs={12} align = "center">
               <Typography component="h4" variant="h4">
-              Results
+              Suggested Time: {data.best_time} 
+              </Typography>
+              <Typography component="h4" variant="h4">
+              Suggested Cuisine: {data.best_cuisine} 
+              </Typography>
+          </Grid>
+          <Grid item xs={12} align = "center">
+              <Typography component="h4" variant="h4">
+              People that can make it
               </Typography>
           </Grid>
           <Grid item xs={12} align = "center" >
-                  <AllUsersBlock data={data}/>
+                  <AllUsersBlock data={data.available_users}/>
+          </Grid>
+          <Grid item xs={12} align = "center">
+              <Typography component="h4" variant="h4">
+              People that can't make it
+              </Typography>
+          </Grid>
+          <Grid item xs={12} align = "center" >
+                  <AllUsersBlock data={data.unavailable_users}/>
           </Grid>
           <Grid item xs={12} align = "center">
               <Button color = "primary" variant = "contained" onClick={handleGoToRoomButtonPressed}>
-                  Go Back to Room
+                  Go back and add more users
               </Button>
+          </Grid>
+          <Grid item xs={12} align = "center">
+              <Button color = "secondary" variant = "contained" onClick={event =>  window.open('https://www.yelp.com/search?find_desc='+data.best_cuisine)}>
+                  See Yelp Reccomendations in your Area
+              </Button>
+              
           </Grid>
 
       </div>

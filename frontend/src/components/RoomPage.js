@@ -53,15 +53,11 @@ function RoomPage() {
                 </Grid>
                 <Grid item xs={12} align = "center">
                     <Typography component="h4" variant="h4">
-                    Send this link to your friends! 
+                    You've been invited to {data.meal} on {data.date}!
                     </Typography>
-                    {data.start_date} to {data.end_date}
+                    Please input your name, available times, and desired cuisine below.
                 </Grid>
-                <Grid item xs={12} align = "center">
-                    <Button color = "primary" variant = "contained" onClick={handleGoToResultsButtonPressed}>
-                        See Results
-                    </Button>
-                </Grid>
+
                 <Grid item xs={12} align = "center">
                     <Typography component="h4" variant="h4">
                     Add a new user:
@@ -70,7 +66,11 @@ function RoomPage() {
                 <Grid item xs={12} align = "center" >
                     <AddUserForm roomCode={code}/>
                 </Grid>
-
+                <Grid item xs={12} align = "center">
+                    <Button color = "primary" variant = "contained" onClick={handleGoToResultsButtonPressed}>
+                        See Results
+                    </Button>
+                </Grid>
 
             </div>
         )
