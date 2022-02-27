@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Button, Grid, Typography, TextField, FormControl, FormHelperText, Radio, RadioGroup, FormControlLabel } from '@material-ui/core';
+import { Button, Grid, Typography, TextField, makeStyles, Paper, Radio, RadioGroup, FormControlLabel } from '@material-ui/core';
 import AllUsersBlock from "./AllUsersBlock";
 function ResultsPage() {
   const navigate= useNavigate();
@@ -13,8 +13,23 @@ function ResultsPage() {
       //then((data)=>console.log(data));
 
   }
+  const useStyles = makeStyles({
+    paperDark: {
+      width: "80%",
+      paddingTop: "25px",
+      paddingBottom: "25px",
+      backgroundColor:"#9fa8da"
 
+    },
+    paperLight: {
+        width: "80%",
+        paddingTop: "25px",
+        paddingBottom: "25px",
+        backgroundColor:"#d1d9ff"
+      }
+  });
 
+  const classes = useStyles();
   useEffect(() => {
     async function fetchData() {
       const requestOptions = {
@@ -42,20 +57,20 @@ function ResultsPage() {
   }
   else{
     return (
-      <div>
+      <div style ={{
+        paddingTop: '50px'
+      }}>
         <Grid container spacing = {2}> 
           <Grid item xs={6} align = "center">
             <Grid container spacing = {1}> 
               <Grid item xs={12} align = "center">
-                  <Typography component="h4" variant="h4">
+                  <h1 style={{color: 'white'}}>
                   Code: {code}
-                  </Typography>
-                  <Typography component="h4" variant="h4">
+                  <br></br>
                   Suggested Time: {data.best_time} 
-                  </Typography>
-                  <Typography component="h4" variant="h4">
+                  <br></br>
                   Suggested Cuisine: {data.best_cuisine} 
-                  </Typography>
+                  </h1>
               </Grid>
               <Grid item xs={12} align = "center">
                 <Button color = "primary" variant = "contained" onClick={handleGoToRoomButtonPressed}>
@@ -70,29 +85,35 @@ function ResultsPage() {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={6} align = "center">
-            <Grid item xs={12} align = "center">
-                <Typography component="h4" variant="h4">
-                People that can make it
-                </Typography>
-            </Grid>
-            <Grid item xs={12} align = "center" >
-                    <AllUsersBlock data={data.available_users}/>
-            </Grid>
-            <Grid item xs={12} align = "center">
-                <Typography component="h4" variant="h4">
-                People that can't make it
-                </Typography>
-            </Grid>
-            <Grid item xs={12} align = "center" >
-                    <AllUsersBlock data={data.unavailable_users}/>
-            </Grid>
-          </Grid>
-        </Grid>
 
+            <Grid item xs={6} align = "center">
+              <Paper className = {classes.paperDark} align={"center"} elevation={20}>
+                <Grid item xs={12} align = "center">
+                    <Typography component="h4" variant="h4">
+                    People that can make it
+                    </Typography>
+                </Grid>
+                <Grid item xs={12} align = "center" >
+                        <AllUsersBlock data={data.available_users}/>
+                </Grid>
+              </Paper>
+              <div style ={{
+                paddingTop: '25px'
+              }}>
+                <Paper className = {classes.paperLight} align={"center"} elevation={20} >
+                  <Grid item xs={12} align = "center">
+                      <Typography component="h4" variant="h4">
+                      People that can't make it
+                      </Typography>
+                  </Grid>
+                  <Grid item xs={12} align = "center" >
+                          <AllUsersBlock data={data.unavailable_users}/>
+                  </Grid>
+                </Paper>
+              </div>
+            </Grid>
 
-          
-
+        </Grid>          
       </div>
     )
   }

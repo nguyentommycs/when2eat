@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Button, Grid, Typography, TextField, FormControl, FormHelperText, Radio, RadioGroup, FormControlLabel } from '@material-ui/core';
+import { Button, Grid, Typography, TextField, makeStyles, Paper, Radio, RadioGroup, FormControlLabel } from '@material-ui/core';
 //import DateAdapter from '@mui/lab/AdapterDateFns';
 import AddUserForm from "./AddUserForm";
 function RoomPage() {
@@ -16,6 +16,23 @@ function RoomPage() {
         console.log(this.refs.myField.getValue())
         navigate("/results/" + code );
     }
+    const useStyles = makeStyles({
+        paperDark: {
+          width: "80%",
+          paddingTop: "50px",
+          paddingBottom: "50px",
+          backgroundColor:"#9fa8da"
+
+        },
+        paperLight: {
+            width: "80%",
+            paddingTop: "50px",
+            paddingBottom: "50px",
+            backgroundColor:"#d1d9ff"
+          }
+      });
+
+    const classes = useStyles();
     useEffect(() => {
         async function fetchData() {
           const requestOptions = {
@@ -44,29 +61,32 @@ function RoomPage() {
     }
     else{
         return (
-            <div>
+            <div style ={{
+                paddingTop: '50px'
+            }}>
             <Grid container spacing = {2}> 
                 <Grid item xs={6} align = "center">
-                    <Typography component="h4" variant="h4">
+                    <h1 style={{color: 'white'}}>
                     Code: {code}
-                    </Typography>
-                    <Grid item xs={10} align = "center">
-                        <Typography component="h4" variant="h4">
-                        You've been invited to {data.meal} on {data.date}!
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={10} align = "center">
-                        <Typography component="h4" variant="body1">
+                    <br></br>
+                    You've been invited to {data.meal} on {data.date}!
+                    </h1>
+                    <body style={{color: 'white'}}>
                         <b>Please input your name, available times, and desired cuisine.</b>
                         <br></br>
                         Afterwards, feel free send this code or link to your friends to invite them!
+                    </body>
+                    <Grid item xs={10} align = "center">
+                        <Typography component="h4" variant="body1">
+
                         </Typography>
 
                     </Grid>
                 </Grid>
 
 
-                <Grid item xs={6} align = "center">
+                <Grid item xs={6} align = "center" >
+                    <Paper className = {classes.paperLight} align={"center"} elevation={20}>
                     <Grid container spacing = {2}> 
                         <Grid item xs={12} align = "center" >
                             <Typography component="h4" variant="h4">
@@ -80,6 +100,8 @@ function RoomPage() {
                             </Button>
                         </Grid>
                     </Grid>
+                    </Paper>
+
                 </Grid>
                 
             </Grid>
