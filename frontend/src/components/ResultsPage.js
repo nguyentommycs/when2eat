@@ -87,10 +87,10 @@ function ResultsPage() {
           </Grid>
 
             <Grid item xs={6} align = "center">
-              <Paper className = {classes.paperDark} align={"center"} elevation={20}>
+              <Paper className = {classes.paperLight} align={"center"} elevation={20}>
                 <Grid item xs={12} align = "center">
-                    <Typography component="h4" variant="h4">
-                    People that can make it
+                    <Typography component="h4" variant="h4" style={{ fontWeight: 600 }}>
+                    Available People
                     </Typography>
                 </Grid>
                 <Grid item xs={12} align = "center" >
@@ -102,8 +102,8 @@ function ResultsPage() {
               }}>
                 <Paper className = {classes.paperLight} align={"center"} elevation={20} >
                   <Grid item xs={12} align = "center">
-                      <Typography component="h4" variant="h4">
-                      People that can't make it
+                      <Typography component="h4" variant="h4" style={{ fontWeight: 600 }}>
+                      Unavailable People
                       </Typography>
                   </Grid>
                   <Grid item xs={12} align = "center" >
