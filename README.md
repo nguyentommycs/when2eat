@@ -18,7 +18,7 @@ python -m venv env
 ```sh
 source env/bin/activate
 ```
-2b. For Linux, activate the virtual environment<br />
+2b. For Windows, activate the virtual environment<br />
 ```sh
 env\Scripts\activate.bat
 ```
